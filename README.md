@@ -31,3 +31,22 @@ Show the preview of Doxygen documentation for the file being written.
     * 内部のdoxygen生成機能はdoxygenのaddon/doxyappの改造品を使っています。それらDoxygenに直接由来するバイナリーやソースコードのライセンスはDoxygenのライセンスに依存します。
 
 
+
+---
+
+## 简体中文说明
+
+本项目基于 hakua-doublemoon 开发的 DoxygenPreviewer，计划增加简体中文和日文支持。
+
+### 开发目标
+
+- 提供简体中文和日文使用说明。
+- 支持根据 VS Code 显示语言自动切换。
+- 为插件的操作提示增加中文翻译。
+- 保留原作者的版权声明和许可证。
+
+### 原始项目
+
+https://github.com/hakua-doublemoon/DoxygenPreviewer
+
+**当前状态：** 多语言支持开发准备阶段。
