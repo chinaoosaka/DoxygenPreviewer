@@ -10,6 +10,37 @@ import subFn = require('./sub');
 import CtrlInfo = require('./CtrlInfo');
 let self_ctrl_info = new CtrlInfo.CtrlInfo();
 
+
+/**
+ * 获取与 VS Code 界面语言对应的提示消息
+ * 支持简体中文、日语和英语，其他语言默认使用英语
+ */
+function getLocalizedMessage(key: string): string {
+    const language = vscode.env.language.toLowerCase();
+
+    const messages: { [key: string]: { [lang: string]: string } } = {
+        commandFailed: {
+            en: "An error occurred while executing Doxygen. Please check the executable and your system compatibility.",
+            zh: "执行 Doxygen 时发生错误，请检查程序文件及系统兼容性。",
+            ja: "Doxygen の実行中にエラーが発生しました。実行ファイルとシステムの互換性を確認してください。"
+        },
+        tempDirectoryError: {
+            en: "Unable to access the temporary directory. Please close any applications using it and try again.",
+            zh: "无法访问临时目录。请关闭可能正在使用该目录的程序，然后重试。",
+            ja: "一時フォルダーにアクセスできません。使用中のアプリケーションを閉じて、再試行してください。"
+        }
+    };
+
+    const lang = language.indexOf("zh") === 0
+        ? "zh"
+        : language.indexOf("ja") === 0
+            ? "ja"
+            : "en";
+
+    return messages[key] ? messages[key][lang] : key;
+}
+
+
 const env = process.env; // 環境変数からtmpフォルダを求める
 const output_dir = (env.Tmp ? path.join(env.Tmp, "DoxygenViewer") : "");
 
@@ -217,13 +248,18 @@ function doxygen_exec(current_path: string)
             fs.mkdirSync(output_dir);
             callback();
         }
-    } catch(e) {
+    } catch (e) {
         console.log("!! fs err : " + e);
         const err_msg = e.toString();
+
         if (err_msg.includes("Command failed")) {
-            vscode.window.showErrorMessage('Sorry something was happend. Your system is x86?');
+            vscode.window.showErrorMessage(
+                getLocalizedMessage("commandFailed")
+            );
         } else {
-            vscode.window.showErrorMessage('Please close %Temp% directory');
+            vscode.window.showErrorMessage(
+                getLocalizedMessage("tempDirectoryError")
+            );
         }
     }
 
