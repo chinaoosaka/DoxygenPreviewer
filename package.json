@@ -1,7 +1,7 @@
 {
 	"name": "doxygen-previewer",
 	"displayName": "Doxygen Previewer",
-	"description": "Show the preview Doxygen documentation.",
+	"description": "%extension.description%",
 	"publisher": "hakua",
 	"author": "hakua-doublemoon",
 	"license": "MIT",
@@ -25,7 +25,7 @@
 		"commands": [
 			{
 				"command": "extension.DoxygenPreviewer",
-				"title": "Doxygen Previewer"
+				"title": "%command.preview.title%"
 			}
 		]
 	},

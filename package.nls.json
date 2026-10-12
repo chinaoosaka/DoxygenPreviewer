@@ -1,0 +1,5 @@
+
+{
+    "extension.description": "Show the preview Doxygen documentation.",
+    "command.preview.title": "Doxygen Previewer"
+}
